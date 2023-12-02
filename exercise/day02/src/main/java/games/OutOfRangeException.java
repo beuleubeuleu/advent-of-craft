@@ -1,4 +1,3 @@
 package games;
 
-public class OutOfRangeException extends Exception {
-}
+public class OutOfRangeException extends Exception {}
