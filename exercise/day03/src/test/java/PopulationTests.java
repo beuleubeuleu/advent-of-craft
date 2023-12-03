@@ -8,15 +8,15 @@ import org.junit.jupiter.api.Test;
 import people.Person;
 import people.Pet;
 import people.PetType;
+import people.Population;
 
 class PopulationTests {
 
-  private static List<Person> population;
+  private static Population population;
 
   @BeforeAll
   static void setup() {
-    population =
-      Arrays.asList(
+    Population population = new Population(
         new Person("Peter", "Griffin").addPet(PetType.CAT, "Tabby", 2),
         new Person("Stewie", "Griffin")
           .addPet(PetType.CAT, "Dolly", 3)
@@ -32,23 +32,10 @@ class PopulationTests {
       );
   }
 
-  @Test
-  void whoOwnsTheYoungestPet() {
-    var filtered = population
-      .stream()
-      .min(
-        Comparator.comparingInt(person ->
-          person
-            .pets()
-            .stream()
-            .mapToInt(Pet::age)
-            .min()
-            .orElse(Integer.MAX_VALUE)
-        )
-      )
-      .orElse(null);
 
-    assert filtered != null;
-    assertThat(filtered.firstName()).isEqualTo("Lois");
+@Test
+  void whoOwnsTheYoungestPet() {
+    
+    assertThat(population.youngestPetOwner().firstName()).isEqualTo("Lois");
   }
 }
